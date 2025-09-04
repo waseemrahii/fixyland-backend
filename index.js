@@ -1,3 +1,4 @@
+
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
@@ -15,17 +16,45 @@ connectDB();
 
 const app = express();
 
-app.use(cors());
+// ✅ Allowed origins for frontend
+const allowedOrigins = [
+  "https://em.lhd-pk.com"];
+
+// ✅ CORS middleware
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin) return callback(null, true); // allow Postman or server requests
+      if (allowedOrigins.includes(origin)) return callback(null, true);
+      return callback(new Error(`CORS policy: Origin ${origin} not allowed`), false);
+    },
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
+
+// ✅ Middleware
 app.use(express.json());
 app.use(morgan("dev"));
 
-const API_VERSION = "/api/v0";
+// ✅ Root route (GET /)
+app.get("/", (req, res) => {
+  res.json({
+    status: "success",
+    message: "Fixyland Backend API is live ✅",
+    version: "v0"
+  });
+});
 
+// ✅ API versioning
+const API_VERSION = "/api/v0";
 app.use(`${API_VERSION}/staff`, staffRoutes);
 app.use(`${API_VERSION}/hotels`, hotelRoutes);
 app.use(`${API_VERSION}/appointments`, appointmentRoutes);
-// Error Middleware
+
+// ✅ Error handling middleware
 app.use(errorHandler);
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
+// ✅ Export app for Vercel serverless function
+export default app;
