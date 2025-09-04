@@ -1,0 +1,47 @@
+# Node modules
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables
+.env
+
+# Logs
+logs/
+*.log
+pids/
+*.pid
+*.seed
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Build directories (if any)
+dist/
+build/
+
+# VSCode settings
+.vscode/
+
+# IDE files
+.idea/
+
+# Optional npm cache
+.npm/
+
+# Optional MacOS files
+*.swp
+*.swo
+
+# MongoDB dumps (if you create any)
+dump/
+*.bson
+*.json
+
+# Nodemon
+.nodemon.json
+
+# Coverage for testing
+coverage/
