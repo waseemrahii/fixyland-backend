@@ -17,7 +17,7 @@ const app = express();
 
 // ✅ CORS configuration
 const allowedOrigins = [
-  "https://fixyland-main.vercel.app",
+  "http://em.lhd-pk.com",
   "http://localhost:5173"
 ];
 
