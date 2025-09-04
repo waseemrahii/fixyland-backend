@@ -17,8 +17,8 @@ const app = express();
 
 // ✅ CORS configuration
 const allowedOrigins = [
-  "http://localhost:5173",
-  "https://fixyland-main.vercel.app"
+    "https://fixyland-main.vercel.app",
+    "http://localhost:5173"
 ];
 
 app.use(cors({
@@ -37,8 +37,19 @@ app.use(cors({
 app.use(express.json());
 app.use(morgan("dev"));
 
-// Routes
+// ✅ Health check route
+app.get("/", (req, res) => {
+  res.json({
+    status: "success",
+    message: "Fixyland Backend API is live ✅",
+    version: "v0"
+  });
+});
+
+// ✅ API versioning
 const API_VERSION = "/api/v0";
+
+// Routes
 app.use(`${API_VERSION}/staff`, staffRoutes);
 app.use(`${API_VERSION}/hotels`, hotelRoutes);
 app.use(`${API_VERSION}/appointments`, appointmentRoutes);
