@@ -18,7 +18,7 @@ const app = express();
 // ✅ Allowed origins for frontend
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://fixyland-main.vercel.app"
+  "http://localhost:5174"
 ];
 
 // ✅ CORS middleware
